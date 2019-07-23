@@ -1,6 +1,7 @@
 from flask import Flask, render_template, url_for
 from util import json_response
 import persistence
+import database_handler
 
 app = Flask(__name__)
 
@@ -30,6 +31,13 @@ def get_cards_for_board(board_id: int):
     :param board_id: id of the parent board
     """
     return persistence.get_cards_for_board(board_id)
+
+
+@app.route('/add-board')
+@json_response
+def add_board():
+    return {'id': 2}
+    """database_handler.add_board()"""
 
 
 def main():

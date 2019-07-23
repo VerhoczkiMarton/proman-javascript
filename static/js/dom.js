@@ -19,6 +19,9 @@ export let dom = {
     },
     init: function () {
         // This function should run once, when the page is loaded.
+        document.querySelector('.board-add').addEventListener('click', () => {
+            dataHandler.createNewBoard();
+        })
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
@@ -54,4 +57,7 @@ export let dom = {
         // it adds necessary event listeners also
     },
     // here comes more features
+    addBoard: function (board) {
+        document.querySelector('.board-container').innerHTML += board;
+    }
 };
