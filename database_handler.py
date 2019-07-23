@@ -25,4 +25,6 @@ def add_board(cursor):
     cursor.execute("""
     INSERT INTO board(title) VALUES (%(board_title)s) 
     """, {'board_title': board_title})
+    id = get_latest_board_id()
+    return {'id': id}
 
