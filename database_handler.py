@@ -17,7 +17,11 @@ def get_cards_for_board(cursor, board_id):
 
 
 def get_latest_board_id():
-    return get_boards()[-1]['id']
+    try:
+        latest_board_id = get_boards()[-1]['id']
+    except:
+        latest_board_id = 0
+    return latest_board_id
 
 
 @connection_handler
