@@ -21,6 +21,7 @@ export let dataHandler = {
     _api_post: function (url, data, callback) {
         // it is not called from outside
         // sends the data to the API, and calls callback function
+
     },
     init: function () {
     },
@@ -59,22 +60,22 @@ export let dataHandler = {
                 <div class="board-columns">
                     <div class="board-column 0">
                         <div class="board-column-title">New</div>
-                        <div class="board-column-content">
+                        <div class="board-column-content new">
                         </div>
                     </div>
                     <div class="board-column 1">
                         <div class="board-column-title">In Progress</div>
-                        <div class="board-column-content">
+                        <div class="board-column-content in-progress">
                         </div>
                     </div>
-                    <div class="board-column 2">
+                    <div class="board-column 2 testing">
                         <div class="board-column-title">Testing</div>
-                        <div class="board-column-content">
+                        <div class="board-column-content testing">
                         </div>
                     </div>
-                    <div class="board-column 3">
+                    <div class="board-column 3 done">
                         <div class="board-column-title">Done</div>
-                        <div class="board-column-content">
+                        <div class="board-column-content done">
                         </div>
                     </div>
                 </div>
