@@ -18,7 +18,7 @@ def get_cards_for_board(cursor, board_id):
 
 def get_latest_board_id():
     try:
-        latest_board_id = get_boards()[-1]['id']
+        latest_board_id = get_boards()[0]['id']
     except:
         latest_board_id = 0
     return latest_board_id
@@ -33,3 +33,24 @@ def add_board(cursor):
     id = get_latest_board_id()
     return {'id': id}
 
+
+def get_latest_card_id(board_id):
+    try:
+        all_ = get_cards_for_board(board_id)
+        last_card = all_[-1]
+        latest_card_id = last_card['id'] + 1
+
+    except:
+        latest_card_id = 1
+    return latest_card_id
+
+
+@connection_handler
+def add_card(cursor, boardId):
+    card_title= f"Card {get_latest_card_id(boardId)}"
+    cursor.execute("""
+    INSERT INTO card(title, progress, board_id) 
+    VALUES (%(card_title)s, 0, %(board_id)s)
+    """, {"card_title": card_title, "board_id": boardId})
+    id = get_latest_card_id(boardId)
+    return {'id': id, 'title': card_title}

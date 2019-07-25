@@ -6,7 +6,8 @@ function init() {
     dom.init();
     // loads the boards to the screen
     dom.loadBoards();
-
+    let kula = document.querySelector("#fasz");
+    kula.addEventListener("click", dom.addCardHandler);
 }
 
 init();

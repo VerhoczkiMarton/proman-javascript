@@ -8,8 +8,8 @@ export let dom = {
         fakeDiv.innerHTML = textToAppend.trim();
 
         for (let childNode of fakeDiv.childNodes) {
-                if (prepend) {
-                elementToExtend.prependChild(childNode);
+            if (prepend) {
+                elementToExtend.insertBefore(childNode, elementToExtend.firstChild);
             } else {
                 elementToExtend.appendChild(childNode);
             }
@@ -22,6 +22,7 @@ export let dom = {
         document.querySelector('.board-add').addEventListener('click', () => {
             dataHandler.createNewBoard();
         })
+
     },
     loadBoards: function () {
         // retrieves boards and makes showBoards called
@@ -75,9 +76,21 @@ export let dom = {
         // shows the cards of a board
         // it adds necessary event listeners also
     },
-        // here comes more features
-        addBoard: function (board) {
-            document.querySelector('.board-container').innerHTML += board;
-        }
+    // here comes more features
+    addBoard: function (board) {
+        let boardContainer = document.querySelector('.board-container');
+        boardContainer.innerHTML += board;
+    },
+    addCard: function (card, boardId) {
+        document.querySelector('.board-column-content').innerHTML += card;
+    },
+    addCardHandler: function () {
+        let boardContainer = document.querySelector('.board-container');
+        let addButtons = boardContainer.querySelectorAll(".board-add");
+        addButtons[addButtons.length - 1].addEventListener("click", e => {
+            let boardId =  e.target.parentElement.parentElement.id;
+            dataHandler.createNewCard(boardId)
+        })
+    }
+};
 
-    };

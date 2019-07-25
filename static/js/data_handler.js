@@ -3,7 +3,7 @@
 
 // (watch out: when you would like to use a property/function of an object from the
 // object itself then you must use the 'this' keyword before. For example: 'this._data' below)
-import { dom } from "./dom.js";
+import {dom} from "./dom.js";
 
 export let dataHandler = {
     _data: {}, // it contains the boards and their cards and statuses. It is not called from outside.
@@ -52,7 +52,7 @@ export let dataHandler = {
     },
     createNewBoard: function () {
         this._api_get('/add-board', (data) => {
-            let boardTemplate = `<section class="board">
+            let boardTemplate = `<section id="${data.id}" class="board">
                 <div class="board-header"><span class="board-title">Board ${data.id}</span>
                     <button class="board-add">Add Card</button>
                     <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
@@ -83,8 +83,16 @@ export let dataHandler = {
             dom.addBoard(boardTemplate);
         });
     },
-    createNewCard: function (cardTitle, boardId, statusId, callback) {
+    createNewCard: function (boardId) {
         // creates new card, saves it and calls the callback function with its data
+        this._api_get(`/add-card/${boardId}`, (data)=>{
+            let cardTemplate = `<div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">${data.title}</div>
+                        </div>`;
+            dom.addCard(cardTemplate, boardId);
+        });
+
     }
     // here comes more features
 };

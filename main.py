@@ -39,6 +39,12 @@ def add_board():
     return database_handler.add_board()
 
 
+@app.route('/add-card/<int:board_id>')
+@json_response
+def add_card(board_id):
+    return database_handler.add_card(board_id)
+
+
 def main():
     app.run(debug=True)
 
