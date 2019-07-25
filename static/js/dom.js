@@ -28,6 +28,7 @@ export let dom = {
         // retrieves boards and makes showBoards called
         dataHandler.getBoards(function (boards) {
             dom.showBoards(boards);
+            dom.addCardHandler();
         });
     },
     showBoards: function (boards) {
@@ -37,9 +38,8 @@ export let dom = {
         // shows boards appending them to #boards div
         // it adds necessary event listeners also
         for (let board of boards) {
-            let boardId = 'Board '+board.id;
-            let boardSection = `<section class="board" id="${boardId}">
-                <div class="board-header"><span class="board-title">${boardId}</span>
+            let boardSection = `<section class="board" data-board-id="${board.id}">
+                <div class="board-header"><span class="board-title">${'Board '+board.id}</span>
                     <button class="board-add">Add Card</button>
                     <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
                 </div>
@@ -80,17 +80,23 @@ export let dom = {
     addBoard: function (board) {
         let boardContainer = document.querySelector('.board-container');
         boardContainer.innerHTML += board;
+        let cardHandler = dom.addCardHandler();
+        boardContainer.lastElementChild.querySelector('.board-header .board-add').addEventListener('click', cardHandler);
     },
     addCard: function (card, boardId) {
-        document.querySelector('.board-column-content').innerHTML += card;
+        let board = document.querySelectorAll(`[data-board-id="${boardId}"]`)[0];
+        let column = board.querySelector('.board-column');
+        column.querySelector('.board-column-content').innerHTML += card;
     },
     addCardHandler: function () {
         let boardContainer = document.querySelector('.board-container');
         let addButtons = boardContainer.querySelectorAll(".board-add");
-        addButtons[addButtons.length - 1].addEventListener("click", e => {
-            let boardId =  e.target.parentElement.parentElement.id;
-            dataHandler.createNewCard(boardId)
-        })
+        for (let addButton of addButtons) {
+            addButton.addEventListener("click", e => {
+                let boardId =  e.target.parentElement.parentElement.dataset.boardId;
+                dataHandler.createNewCard(boardId)
+            })
+        }
     }
 };
 

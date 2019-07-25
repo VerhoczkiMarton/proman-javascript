@@ -52,7 +52,7 @@ export let dataHandler = {
     },
     createNewBoard: function () {
         this._api_get('/add-board', (data) => {
-            let boardTemplate = `<section id="${data.id}" class="board">
+            let boardTemplate = `<section data-board-id="${data.id}" class="board">
                 <div class="board-header"><span class="board-title">Board ${data.id}</span>
                     <button class="board-add">Add Card</button>
                     <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
