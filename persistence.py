@@ -25,7 +25,7 @@ def clear_cache():
         _cache.pop(k)
 
 
-def get_boards(force=False):
+def get_boards(force=True):
     return _get_data('board', force)
 
 
