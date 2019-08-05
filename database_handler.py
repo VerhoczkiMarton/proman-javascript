@@ -9,18 +9,6 @@ def get_boards(cursor):
 
 
 @connection_handler
-def get_card_id(cursor):
-    cursor.execute("""
-    SELECT MAX(id)
-    FROM card;
-    """)
-    try:
-        return cursor.fetchone()['max']
-    except:
-        return 1
-
-
-@connection_handler
 def get_cards_for_board(cursor, board_id):
     cursor.execute("""
     SELECT * FROM card WHERE card.board_id = %(board_id)s
@@ -50,10 +38,9 @@ def add_board(cursor):
 
 @connection_handler
 def add_card(cursor, boardId):
-    id_ = get_card_id()
-    card_title = f"Card {id_}"
+    card_title = "New card"
     cursor.execute("""
     INSERT INTO card(title, progress, board_id) 
     VALUES (%(card_title)s, 0, %(board_id)s)
     """, {"card_title": card_title, "board_id": boardId})
-    return {'id': id_, 'title': card_title}
+    return {'title': card_title}

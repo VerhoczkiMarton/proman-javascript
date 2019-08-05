@@ -67,14 +67,23 @@ export let dom = {
                 </div>
             </section>`;
             document.querySelector('#boards').innerHTML += boardSection;
+            this.loadCards(board.id);
         }
     },
     loadCards: function (boardId) {
         // retrieves cards and makes showCards called
+        dataHandler._api_get(`/get-cards/${boardId}`, (cards) => { this.showCards(cards, boardId) });
     },
-    showCards: function (cards) {
+    showCards: function (cards, boardID) {
         // shows the cards of a board
         // it adds necessary event listeners also
+        for (let card of cards) {
+            let cardHTML = `<div class="card">
+                            <div class="card-remove"><i class="fas fa-trash-alt"></i></div>
+                            <div class="card-title">${card.title}</div>
+                        </div>`;
+            this.addCard(cardHTML, boardID);
+        }
     },
     // here comes more features
     addBoard: function (board) {

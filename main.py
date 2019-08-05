@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, jsonify
 from util import json_response
 import persistence
 import database_handler
@@ -30,7 +30,9 @@ def get_cards_for_board(board_id: int):
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    return persistence.get_cards_for_board(board_id)
+
+    cards_for_board = persistence.get_cards_for_board(board_id, force=True)
+    return cards_for_board
 
 
 @app.route('/add-board')
